@@ -9,6 +9,9 @@ import {rm} from "../fs/rm.js";
 import {parseInput} from "./parseInput.js";
 import {osController} from "../os/osController.js";
 import {hash} from "../hash/hash.js";
+import {mv} from "../fs/mv.js";
+import {compress} from "../zip/compress.js";
+import {decompress} from "../zip/decompress.js";
 
 export const controller = async (userInput) => {
     const [operation, ...resData] = parseInput(userInput);
@@ -34,7 +37,12 @@ export const controller = async (userInput) => {
             break
         case 'hash': await hash(...resData);
             break
+        case 'mv': await mv(...resData);
+            break
+        case 'compress': await compress(...resData);
+            break
+        case 'decompress': await decompress(...resData);
+            break
     }
     console.log(`You are currently in ${process.cwd()}`);
 }
-

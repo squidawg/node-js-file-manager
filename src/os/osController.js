@@ -5,16 +5,16 @@ import {username} from "./username.js";
 import {architecture} from "./architecture.js";
 
 export const osController = (resData) => {
-    switch (resData.replace('--','')){
-        case 'EOL': eol();
+    switch (resData){
+        case '--EOL': eol();
             break;
-        case 'cpus': cpus();
+        case '--cpus': cpus();
             break;
-        case 'homedir': homedir();
+        case '--homedir': homedir();
             break;
-        case 'username': username();
+        case '--username': username();
             break;
-        case 'architecture': architecture();
+        case '--architecture': architecture();
             break;
 
     }

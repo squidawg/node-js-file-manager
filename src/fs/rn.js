@@ -11,6 +11,7 @@ export const rename = async (...userInput) => {
     }
     fs.renameSync(oldPath, newPath);
 
+
 };
 
 //rn /Users/zhenyaprivet/Desktop/untitled/test2.txt test2.txt

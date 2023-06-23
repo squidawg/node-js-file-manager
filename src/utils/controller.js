@@ -13,35 +13,61 @@ import {mv} from "../fs/mv.js";
 import {compress} from "../zip/compress.js";
 import {decompress} from "../zip/decompress.js";
 import {currentDir, errLogger} from "./mesLogger.js";
+import {errControllerArgv, errControllerNoArgv} from "./errController.js";
+
 
 export const controller = async (userInput) => {
     const [operation, ...resData] = parseInput(userInput);
     switch (operation) {
-        case 'ls': resData.length > 0? errLogger(): onList();
+        case 'ls': errControllerNoArgv(resData, onList);
             break
-        case 'cat': resData.length <= 0? errLogger(): await cat(...resData);
+        case 'cat': errControllerArgv(resData, async () => {
+            await cat(...resData)
+        })
             break
-        case 'up': resData.length > 0? errLogger(): await up();
+        case 'up': errControllerNoArgv(resData, async () => {
+            await up();
+        })
             break
-        case 'rn': resData.length <= 0? errLogger(): await rename(...resData);
+        case 'rn': errControllerArgv(resData, async () => {
+            await rename(...resData)
+        })
             break
-        case 'cd': resData.length <= 0? errLogger(): await cd(...resData);
+        case 'cd': errControllerArgv(resData, async () => {
+            await cd(...resData)
+        })
             break
-        case 'add': resData.length <= 0? errLogger(): await add(...resData);
+        case 'add': errControllerArgv(resData, async () => {
+            await add(...resData)
+        })
             break
-        case 'cp': resData.length <= 0? errLogger(): await cp(...resData);
+        case 'cp': errControllerArgv(resData, async () => {
+            await cp(...resData)
+        })
             break
-        case 'rm': resData.length <= 0? errLogger(): await rm(...resData);
+        case 'rm': errControllerArgv(resData, async () => {
+            await rm(...resData)
+        })
             break
-        case 'os': resData.length <= 0? errLogger(): osController(...resData);
+        case 'os': errControllerArgv(resData, async () => {
+            await osController(...resData)
+        })
             break
-        case 'hash': resData.length <= 0? errLogger(): await hash(...resData);
+        case 'hash': errControllerArgv(resData, async () => {
+            await hash(...resData)
+        })
             break
-        case 'mv': resData.length <= 0? errLogger(): await mv(...resData);
+        case 'mv': errControllerArgv(resData, async () => {
+            await mv(...resData)
+        })
             break
-        case 'compress': resData.length <= 0? errLogger(): await compress(...resData);
+        case 'compress': errControllerArgv(resData, async () => {
+            await compress(...resData)
+        })
             break
-        case 'decompress': resData.length <= 0? errLogger(): await decompress(...resData);
+        case 'decompress': errControllerArgv(resData, async () => {
+            await decompress(...resData)
+        })
             break
         default: errLogger();
             break

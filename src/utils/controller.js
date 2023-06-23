@@ -10,8 +10,7 @@ import {parseInput} from "./parseInput.js";
 import {osController} from "../os/osController.js";
 import {hash} from "../hash/hash.js";
 import {mv} from "../fs/mv.js";
-import {compress} from "../zip/compress.js";
-import {decompress} from "../zip/decompress.js";
+import {zipBrotli} from "../zip/zipBrotli.js";
 import {logCurrentDir, logInvalidInput} from "./mesLogger.js";
 import {errControllerArgv, errControllerNoArgv} from "./errController.js";
 
@@ -62,11 +61,11 @@ export const controller = async (userInput) => {
         })
             break;
         case 'compress': errControllerArgv(resData, async () => {
-            await compress(...resData);
+            await zipBrotli(true, ...resData);
         })
             break;
         case 'decompress': errControllerArgv(resData, async () => {
-            await decompress(...resData);
+            await zipBrotli(false, ...resData);
         })
             break;
         default: logInvalidInput();

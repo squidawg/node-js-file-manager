@@ -3,16 +3,17 @@ import fs from "fs";
 import path from "path";
 import {logOperationFailed} from "../utils/mesLogger.js";
 
-export const decompress = async (currPath, destPath) => {
-    try {
+export const zipBrotli = async (state, currPath, destPath) => {
+    try{
         if (!fs.existsSync(currPath)) {
             logOperationFailed();
             return;
         }
-        const brotliCompress = zlib.createBrotliDecompress();
+
+        const brotliCompress = state ? zlib.createBrotliCompress(): zlib.createBrotliDecompress();
         const filename = path.basename(currPath);
         const readStream = fs.createReadStream(currPath);
-        const writeStream = fs.createWriteStream(path.join(destPath,filename));
+        const writeStream = fs.createWriteStream(path.join(destPath, filename));
 
         const stream = readStream.pipe(brotliCompress).pipe(writeStream);
 
@@ -22,15 +23,17 @@ export const decompress = async (currPath, destPath) => {
         writeStream.on('error', () => {
             logOperationFailed();
         })
+        stream.on('error', () => {
+            logOperationFailed()
+        })
 
         stream.on('finish', () => {
-            console.log('Decompressed...');
+            console.log( state?'Compressed...':'Decompressed...')
         })
-        stream.on('error', () => {
-            logOperationFailed();
-        })
+
     }
     catch (e) {
         logOperationFailed();
     }
+
 }

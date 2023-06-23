@@ -23,7 +23,7 @@ export const ls = () => {
             }
     })
 
-    return arr;
+    return arr
 };
 export const  onList = () => {
     const resData = ls();

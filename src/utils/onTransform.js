@@ -1,14 +1,14 @@
 export const onTransform = (resData) => {
-  const test = [];
+  const tableData = [];
   resData.sort((a, b) => {
-    const valueA = Object.values(a)[0];
-    const valueB = Object.values(b)[0];
+    const valueA = Object.keys(a)[0];
+    const valueB = Object.keys(b)[0];
     return valueA.localeCompare(valueB);
   }).forEach(item => {
     for(let obj in item){
-      test.push({ Name: obj, Type: item[obj]});
+      tableData.push({ Name: obj, Type: item[obj]});
     }
   });
 
-  console.table(test);
+  console.table(tableData.sort((a,b) => a.Type.localeCompare(b.Type)));
 }

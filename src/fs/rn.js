@@ -4,8 +4,11 @@ import {onFail} from "../utils/mesLogger.js";
 
 export const rename = async (oldPath, fileName) => {
     try{
-        const currentFilePath = oldPath.split('/');
-        const pathToFile = currentFilePath.slice(0,currentFilePath.length -1).join('/')
+        if (!fs.existsSync(oldPath)) {
+            onFail();
+            return;
+        }
+        const pathToFile = path.dirname(oldPath);
         const newPath = path.join(pathToFile, fileName);
         fs.renameSync(oldPath, newPath);
     }

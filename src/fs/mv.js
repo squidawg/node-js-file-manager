@@ -4,13 +4,26 @@ import {onFail} from "../utils/mesLogger.js";
 
 export const mv = (currentPath, destPath) => {
     try {
-        const fileName = currentPath.split('/').at(-1)
+        if (!fs.existsSync(currentPath)) {
+            onFail();
+            return;
+        }
+        const filename = path.basename(currentPath)
         const readStream = fs.createReadStream(currentPath);
-        const writeStream = fs.createWriteStream(path.join(destPath, fileName));
+        const writeStream = fs.createWriteStream(path.join(destPath, filename));
+        const stream = readStream.pipe(writeStream);
 
-        readStream.pipe(writeStream);
+        
+        readStream.on('error', ()=> {
+            onFail()
+        })
+
         writeStream.on('finish', ()=> {
             fs.unlinkSync(currentPath)
+        })
+
+        stream.on('error', () => {
+            onFail()
         })
     }
     catch (e) {

@@ -1,9 +1,12 @@
 import fs  from 'fs'
 import {onFail} from "../utils/mesLogger.js";
 
-export const cat  = async (...userInput) => {
+export const cat  = async (filePath) => {
     try{
-        const filePath = userInput.at(0)
+        if (!fs.existsSync(filePath)) {
+            onFail();
+            return;
+        }
         const readableStream = fs.createReadStream(filePath, 'utf-8')
         for await (const chunk of readableStream){
             process.stdout.write(chunk)

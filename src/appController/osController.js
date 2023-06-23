@@ -1,8 +1,8 @@
-import {eol} from "./eol.js";
-import {cpus} from "./cpus.js";
-import {homedir} from "./homedir.js";
-import {username} from "./username.js";
-import {architecture} from "./architecture.js";
+import {eol} from "../os/eol.js";
+import {cpus} from "../os/cpus.js";
+import {homedir} from "../os/homedir.js";
+import {username} from "../os/username.js";
+import {architecture} from "../os/architecture.js";
 import {logInvalidInput} from "../utils/mesLogger.js";
 
 export const osController = (resData, ...rest) => {

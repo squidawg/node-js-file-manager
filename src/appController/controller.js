@@ -6,19 +6,21 @@ import {cd} from "../navigation/cd.js";
 import {add} from "../fs/add.js";
 import {cp} from "../fs/cp.js";
 import {rm} from "../fs/rm.js";
-import {parseInput} from "./parseInput.js";
-import {osController} from "../os/osController.js";
+import {parseInput} from "../utils/parseInput.js";
+import {osController} from "./osController.js";
 import {hash} from "../hash/hash.js";
 import {mv} from "../fs/mv.js";
 import {zipBrotli} from "../zip/zipBrotli.js";
-import {logCurrentDir, logInvalidInput} from "./mesLogger.js";
-import {errControllerArgv, errControllerNoArgv} from "./errController.js";
+import {logCurrentDir, logInvalidInput} from "../utils/mesLogger.js";
+import {errControllerArgv, errControllerNoArgv} from "../utils/errController.js";
 
 
 export const controller = async (userInput) => {
     const [operation, ...resData] = parseInput(userInput);
     switch (operation) {
-        case 'ls': errControllerNoArgv(resData, onList);
+        case 'ls': errControllerNoArgv(resData, async () => {
+            await onList();
+        });
             break;
         case 'cat': errControllerArgv(resData, async () => {
             await cat(...resData);

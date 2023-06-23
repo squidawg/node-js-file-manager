@@ -4,8 +4,8 @@ export const parseArgs = () => {
     const result = process.argv.slice(2)
         .map( (arg) => arg
             .startsWith(usernamePrefix) ?
-            arg.replace(usernamePrefix, ''): defaultName);
-
-    return result.length <= 0 ? defaultName: result.join('');
+            arg.slice(usernamePrefix.length): defaultName)
+        .join('');
+    return result === '' ? defaultName: result;
 
 };

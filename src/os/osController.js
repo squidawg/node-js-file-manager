@@ -5,20 +5,24 @@ import {username} from "./username.js";
 import {architecture} from "./architecture.js";
 import {errLogger} from "../utils/mesLogger.js";
 
-export const osController = (resData) => {
-    switch (resData){
-        case '--EOL': eol();
-            break;
-        case '--cpus': cpus();
-            break;
-        case '--homedir': homedir();
-            break;
-        case '--username': username();
-            break;
-        case '--architecture': architecture();
-            break;
-        default: errLogger();
-            break
-
+export const osController = (resData, ...rest) => {
+    if(rest.length !== 0){
+        errLogger()
+    }
+    else {
+        switch (resData){
+            case '--EOL': eol();
+                break;
+            case '--cpus': cpus();
+                break;
+            case '--homedir': homedir();
+                break;
+            case '--username': username();
+                break;
+            case '--architecture': architecture();
+                break;
+            default: errLogger();
+                break
+        }
     }
 }

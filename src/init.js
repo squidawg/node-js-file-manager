@@ -4,11 +4,13 @@ import { dirController } from "./utils/dirController.js";
 import {currentDir, farewellMessage, onGreet} from "./utils/mesLogger.js";
 
 const awaitUserInput = async () => {
-    const argv = '--username='
-    const argvs = process.argv.slice(2).includes(argv)
+    const argvTemplate = '--username='
+    const argvs = process.argv
+        .slice(2)
+        .find(argv => argv.startsWith(argvTemplate))
 
     if(!argvs){
-        onExit()
+        onExit();
     }
     onGreet();
     dirController();

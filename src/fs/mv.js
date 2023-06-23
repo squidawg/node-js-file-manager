@@ -1,13 +1,15 @@
 import path from "path";
 import fs from "fs";
 import {logOperationFailed} from "../utils/mesLogger.js";
+import {isExist} from "../utils/isExist.js";
 
 export const mv = (currentPath, destPath) => {
     try {
-        if (!fs.existsSync(currentPath)) {
-            logOperationFailed();
-            return;
-        }
+        isExist(currentPath).then(exists => {
+            if(exists){
+                logOperationFailed();
+            }
+        })
         const filename = path.basename(currentPath);
         const readStream = fs.createReadStream(currentPath);
         const writeStream = fs.createWriteStream(path.join(destPath, filename));
@@ -19,7 +21,11 @@ export const mv = (currentPath, destPath) => {
         })
 
         writeStream.on('finish', ()=> {
-            fs.unlinkSync(currentPath);
+            fs.unlink(currentPath,(e)=>{
+                if(e){
+                    logOperationFailed()
+                }
+            });
         })
 
         stream.on('error', () => {

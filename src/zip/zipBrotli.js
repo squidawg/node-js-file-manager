@@ -2,13 +2,15 @@ import zlib from "zlib";
 import fs from "fs";
 import path from "path";
 import {logOperationFailed} from "../utils/mesLogger.js";
+import {isExist} from "../utils/isExist.js";
 
 export const zipBrotli = async (state, currPath, destPath) => {
     try{
-        if (!fs.existsSync(currPath)) {
-            logOperationFailed();
-            return;
-        }
+        isExist(currPath).then(exists => {
+            if(exists){
+                logOperationFailed();
+            }
+        })
 
         const brotliCompress = state ? zlib.createBrotliCompress(): zlib.createBrotliDecompress();
         const filename = path.basename(currPath);

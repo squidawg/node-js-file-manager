@@ -1,14 +1,16 @@
 import fs from "fs";
 import crypto from "crypto";
 import {logOperationFailed} from "../utils/mesLogger.js";
+import {isExist} from "../utils/isExist.js";
 
 export const hash = async (filePath) => {
     try {
-        if (!fs.existsSync(filePath)) {
-            logOperationFailed();
-            return;
-        }
-        const file = fs.readFileSync(filePath);
+        isExist(filePath).then(exists => {
+            if(exists){
+                logOperationFailed();
+            }
+        })
+        const file = await fs.promises.readFile(filePath);
         const  hash = crypto.createHash('sha256');
         hash.update(file);
         console.log(hash.digest('hex'));
@@ -17,3 +19,5 @@ export const hash = async (filePath) => {
         logOperationFailed();
     }
 }
+
+

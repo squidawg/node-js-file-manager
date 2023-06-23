@@ -1,10 +1,10 @@
 import fs from "fs";
 import path from "path";
 
-export const ls = () => {
+export const ls = async () => {
     const root = process.cwd();
     const arr = [];
-    const files = fs.readdirSync(root);
+    const files = await fs.promises.readdir(root);
     files.forEach(file => {
             const itemPath = path.join(root, file);
             try{
@@ -40,7 +40,7 @@ export const onTransform = (resData) => {
     console.table(tableData.sort((a, b) => a.Type.localeCompare(b.Type)));
 }
 
-export const  onList = () => {
-    const resData = ls();
+export const  onList = async () => {
+    const resData = await ls();
     onTransform(resData);
 }

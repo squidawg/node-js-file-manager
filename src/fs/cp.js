@@ -1,14 +1,15 @@
 import fs from "fs";
 import path from "path";
 import {logOperationFailed} from "../utils/mesLogger.js";
+import {isExist} from "../utils/isExist.js";
 
 export const cp = async (oldPath, filePath) => {
-
     try{
-        if (!fs.existsSync(oldPath)) {
-            logOperationFailed();
-            return;
-        }
+        isExist(oldPath).then(exists => {
+            if(exists){
+                logOperationFailed();
+            }
+        })
         const filename = path.basename(oldPath);
         const readStream = fs.createReadStream(oldPath);
         const writeStream = fs.createWriteStream(path.join(filePath, filename));

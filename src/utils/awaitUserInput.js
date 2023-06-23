@@ -2,7 +2,7 @@ import {onExit} from "./onExit.js";
 import {logCurrentDir, logGreeting} from "./mesLogger.js";
 import {dirController} from "./dirController.js";
 import readline from "readline";
-import {controller} from "./controller.js";
+import {controller} from "../appController/controller.js";
 
 export const awaitUserInput = async () => {
     const argvTemplate = '--username='

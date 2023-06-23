@@ -1,16 +1,20 @@
 import fs  from 'fs'
 import path from "path";
 import {logOperationFailed} from "../utils/mesLogger.js";
+import {isExist} from "../utils/isExist.js";
 
 export const rename = async (oldPath, fileName) => {
     try{
-        if (!fs.existsSync(oldPath)) {
-            logOperationFailed();
-            return;
-        }
+        isExist(oldPath).then(exists => {
+            if(exists){
+                logOperationFailed();
+            }
+        })
         const pathToFile = path.dirname(oldPath);
         const newPath = path.join(pathToFile, fileName);
-        fs.renameSync(oldPath, newPath);
+        fs.rename(oldPath, newPath, (e) =>{
+            logOperationFailed()
+        });
     }
     catch (e) {
         logOperationFailed();

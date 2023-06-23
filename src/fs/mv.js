@@ -1,11 +1,11 @@
 import path from "path";
 import fs from "fs";
-import {onFail} from "../utils/mesLogger.js";
+import {logOperationFailed} from "../utils/mesLogger.js";
 
 export const mv = (currentPath, destPath) => {
     try {
         if (!fs.existsSync(currentPath)) {
-            onFail();
+            logOperationFailed();
             return;
         }
         const filename = path.basename(currentPath);
@@ -15,7 +15,7 @@ export const mv = (currentPath, destPath) => {
 
 
         readStream.on('error', ()=> {
-            onFail();
+            logOperationFailed();
         })
 
         writeStream.on('finish', ()=> {
@@ -23,10 +23,10 @@ export const mv = (currentPath, destPath) => {
         })
 
         stream.on('error', () => {
-            onFail();
+            logOperationFailed();
         })
     }
     catch (e) {
-        onFail();
+        logOperationFailed();
     }
 }

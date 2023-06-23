@@ -1,21 +1,21 @@
-import {parseArgs} from "./parseUsername.js";
+import {parseArgs} from "./parseArgs.js";
 
-export const onGreet = () => {
+export const logGreeting = () => {
     console.log(`Welcome to the File Manager, ${parseArgs()}!`);
 }
 
-export const farewellMessage = () => {
+export const logFarewellMessage = () => {
     console.log(`Thank you for using File Manager, ${parseArgs()}, goodbye!`);
 }
 
-export const errLogger = () => {
+export const logInvalidInput = () => {
   console.log('Invalid Input');
 }
 
-export const onFail = () => {
+export const logOperationFailed = () => {
     console.log('Operation failed');
 }
 
-export const currentDir = () =>{
+export const logCurrentDir = () =>{
     console.log(`You are currently in ${process.cwd()}`);
 }

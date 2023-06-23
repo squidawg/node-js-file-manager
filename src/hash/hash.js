@@ -1,11 +1,11 @@
 import fs from "fs";
 import crypto from "crypto";
-import {onFail} from "../utils/mesLogger.js";
+import {logOperationFailed} from "../utils/mesLogger.js";
 
 export const hash = async (filePath) => {
     try {
         if (!fs.existsSync(filePath)) {
-            onFail();
+            logOperationFailed();
             return;
         }
         const file = fs.readFileSync(filePath);
@@ -14,6 +14,6 @@ export const hash = async (filePath) => {
         console.log(hash.digest('hex'));
     }
     catch (e) {
-        onFail();
+        logOperationFailed();
     }
 }

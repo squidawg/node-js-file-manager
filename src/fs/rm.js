@@ -1,15 +1,15 @@
 import fs from "fs";
-import {onFail} from "../utils/mesLogger.js";
+import {logOperationFailed} from "../utils/mesLogger.js";
 
 export const rm = async (file) => {
     try {
         if (!fs.existsSync(file)) {
-            onFail();
+            logOperationFailed();
             return;
         }
         fs.unlinkSync(file);
     }
     catch (e) {
-        onFail();
+        logOperationFailed();
     }
 }

@@ -1,12 +1,12 @@
 import fs from "fs";
 import path from "path";
-import {onFail} from "../utils/mesLogger.js";
+import {logOperationFailed} from "../utils/mesLogger.js";
 
 export const cp = async (oldPath, filePath) => {
 
     try{
         if (!fs.existsSync(oldPath)) {
-            onFail();
+            logOperationFailed();
             return;
         }
         const filename = path.basename(oldPath);
@@ -16,18 +16,18 @@ export const cp = async (oldPath, filePath) => {
         const stream = readStream.pipe(writeStream);
 
         readStream.on('error', () => {
-            onFail();
+            logOperationFailed();
         })
         writeStream.on('error', () => {
-            onFail();
+            logOperationFailed();
         })
         stream.on('error', () => {
-            onFail();
+            logOperationFailed();
         })
 
     }
     catch (e) {
-        onFail();
+        logOperationFailed();
     }
 
 }

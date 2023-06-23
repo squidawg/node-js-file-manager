@@ -1,10 +1,10 @@
 import fs  from 'fs'
-import {onFail} from "../utils/mesLogger.js";
+import {logOperationFailed} from "../utils/mesLogger.js";
 
 export const cat  = async (filePath) => {
     try{
         if (!fs.existsSync(filePath)) {
-            onFail();
+            logOperationFailed();
             return;
         }
         const readableStream = fs.createReadStream(filePath, 'utf-8');
@@ -13,6 +13,6 @@ export const cat  = async (filePath) => {
         }
     }
     catch (e) {
-        onFail();
+        logOperationFailed();
     }
 }

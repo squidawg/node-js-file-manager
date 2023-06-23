@@ -1,19 +1,19 @@
-import {errLogger} from "./mesLogger.js";
+import {logInvalidInput} from "./mesLogger.js";
 
 export const errControllerNoArgv = (resData, callback) => {
     if(resData.length > 0){
-        return errLogger()
+        return logInvalidInput();
     }
     else {
-        callback()
+        callback();
     }
 }
 
 export const errControllerArgv = (resData, callback) => {
     if(resData.length <= 0){
-        return errLogger()
+        return logInvalidInput();
     }
     else {
-        callback()
+        callback();
     }
 }

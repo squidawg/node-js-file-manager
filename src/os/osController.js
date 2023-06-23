@@ -3,11 +3,11 @@ import {cpus} from "./cpus.js";
 import {homedir} from "./homedir.js";
 import {username} from "./username.js";
 import {architecture} from "./architecture.js";
-import {errLogger} from "../utils/mesLogger.js";
+import {logInvalidInput} from "../utils/mesLogger.js";
 
 export const osController = (resData, ...rest) => {
     if(rest.length !== 0){
-        errLogger()
+        logInvalidInput()
     }
     else {
         switch (resData){
@@ -21,7 +21,7 @@ export const osController = (resData, ...rest) => {
                 break;
             case '--architecture': architecture();
                 break;
-            default: errLogger();
+            default: logInvalidInput();
                 break;
         }
     }

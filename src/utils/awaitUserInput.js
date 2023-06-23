@@ -1,5 +1,5 @@
 import {onExit} from "./onExit.js";
-import {currentDir, onGreet} from "./mesLogger.js";
+import {logCurrentDir, logGreeting} from "./mesLogger.js";
 import {dirController} from "./dirController.js";
 import readline from "readline";
 import {controller} from "./controller.js";
@@ -13,9 +13,9 @@ export const awaitUserInput = async () => {
     if (!argv) {
         onExit();
     }
-    onGreet();
+    logGreeting();
     dirController();
-    currentDir();
+    logCurrentDir();
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout

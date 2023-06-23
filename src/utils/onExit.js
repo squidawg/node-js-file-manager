@@ -1,6 +1,6 @@
-import {farewellMessage} from "./mesLogger.js";
+import {logFarewellMessage} from "./mesLogger.js";
 
 export const onExit = () => {
-    farewellMessage();
+    logFarewellMessage();
     process.exit(0);
 }

@@ -1,12 +1,12 @@
 import * as zlib from "zlib";
 import fs from "fs";
 import path from "path";
-import {onFail} from "../utils/mesLogger.js";
+import {logOperationFailed} from "../utils/mesLogger.js";
 
 export const compress = async (currPath, destPath) => {
     try{
         if (!fs.existsSync(currPath)) {
-            onFail();
+            logOperationFailed();
             return;
         }
         const brotliCompress = zlib.createBrotliCompress();
@@ -17,13 +17,13 @@ export const compress = async (currPath, destPath) => {
         const stream = readStream.pipe(brotliCompress).pipe(writeStream);
 
         readStream.on('error', () => {
-            onFail();
+            logOperationFailed();
         })
         writeStream.on('error', () => {
-            onFail();
+            logOperationFailed();
         })
         stream.on('error', () => {
-            onFail()
+            logOperationFailed()
         })
 
         stream.on('finish', () => {
@@ -33,7 +33,7 @@ export const compress = async (currPath, destPath) => {
 
     }
     catch (e) {
-        onFail();
+        logOperationFailed();
     }
 
 }

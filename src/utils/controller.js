@@ -12,7 +12,7 @@ import {hash} from "../hash/hash.js";
 import {mv} from "../fs/mv.js";
 import {compress} from "../zip/compress.js";
 import {decompress} from "../zip/decompress.js";
-import {currentDir, errLogger} from "./mesLogger.js";
+import {logCurrentDir, logInvalidInput} from "./mesLogger.js";
 import {errControllerArgv, errControllerNoArgv} from "./errController.js";
 
 
@@ -69,9 +69,9 @@ export const controller = async (userInput) => {
             await decompress(...resData);
         })
             break;
-        default: errLogger();
+        default: logInvalidInput();
             break;
     }
-    currentDir();
+    logCurrentDir();
 }
 

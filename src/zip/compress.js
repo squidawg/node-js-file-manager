@@ -1,17 +1,23 @@
 import * as zlib from "zlib";
 import fs from "fs";
 import path from "path";
+import {onFail} from "../utils/mesLogger.js";
 
-export const compress = (currPath, destPath) => {
-    const brotliCompress = zlib.createBrotliCompress();
-    const filename = currPath.split('/').at(-1)
-    const readStream = fs.createReadStream(currPath);
-    const writeStream = fs.createWriteStream(path.join(destPath,`${filename}.br`));
+export const compress = async (currPath, destPath) => {
+    try{
+        const brotliCompress = zlib.createBrotliCompress();
+        const filename = currPath.split('/').at(-1)
+        const readStream = fs.createReadStream(currPath);
+        const writeStream = fs.createWriteStream(path.join(destPath,`${filename}.br`));
 
-    const stream = readStream.pipe(brotliCompress).pipe(writeStream);
+        const stream = readStream.pipe(brotliCompress).pipe(writeStream);
 
-    stream.on('finish', () => {
-        console.log('Compressed...')
-    })
+        stream.on('finish', () => {
+            console.log('Compressed...')
+        })
+    }
+    catch (e) {
+        onFail();
+    }
 
 }

@@ -12,37 +12,40 @@ import {hash} from "../hash/hash.js";
 import {mv} from "../fs/mv.js";
 import {compress} from "../zip/compress.js";
 import {decompress} from "../zip/decompress.js";
+import {currentDir, errLogger} from "./mesLogger.js";
 
 export const controller = async (userInput) => {
     const [operation, ...resData] = parseInput(userInput);
-
     switch (operation) {
-        case 'ls': onList();
+        case 'ls': resData.length > 0? errLogger(): onList();
             break
-        case 'cat': await cat(...resData);
+        case 'cat': resData.length <= 0? errLogger(): await cat(...resData);
             break
-        case 'up': await up();
+        case 'up': resData.length > 0? errLogger(): await up();
             break
-        case 'rn': await rename(...resData);
+        case 'rn': resData.length <= 0? errLogger(): await rename(...resData);
             break
-        case 'cd': await cd(...resData);
+        case 'cd': resData.length <= 0? errLogger(): await cd(...resData);
             break
-        case 'add': await add(...resData);
+        case 'add': resData.length <= 0? errLogger(): await add(...resData);
             break
-        case 'cp': await cp(...resData);
+        case 'cp': resData.length <= 0? errLogger(): await cp(...resData);
             break
-        case 'rm': await rm(...resData);
+        case 'rm': resData.length <= 0? errLogger(): await rm(...resData);
             break
-        case 'os': osController(...resData);
+        case 'os': resData.length <= 0? errLogger(): osController(...resData);
             break
-        case 'hash': await hash(...resData);
+        case 'hash': resData.length <= 0? errLogger(): await hash(...resData);
             break
-        case 'mv': await mv(...resData);
+        case 'mv': resData.length <= 0? errLogger(): await mv(...resData);
             break
-        case 'compress': await compress(...resData);
+        case 'compress': resData.length <= 0? errLogger(): await compress(...resData);
             break
-        case 'decompress': await decompress(...resData);
+        case 'decompress': resData.length <= 0? errLogger(): await decompress(...resData);
+            break
+        default: errLogger();
             break
     }
-    console.log(`You are currently in ${process.cwd()}`);
+    currentDir();
 }
+

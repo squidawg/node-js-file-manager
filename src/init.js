@@ -5,11 +5,11 @@ import {currentDir, farewellMessage, onGreet} from "./utils/mesLogger.js";
 
 const awaitUserInput = async () => {
     const argvTemplate = '--username='
-    const argvs = process.argv
+    const argv = process.argv
         .slice(2)
-        .find(argv => argv.startsWith(argvTemplate))
+        .find(arg => arg.startsWith(argvTemplate))
 
-    if(!argvs){
+    if(!argv){
         onExit();
     }
     onGreet();

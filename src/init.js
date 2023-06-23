@@ -1,11 +1,18 @@
 import readline from "readline";
-import { parseArgs } from './utils/parseUsername.js';
 import { controller } from "./utils/controller.js";
 import { dirController } from "./utils/dirController.js";
+import {currentDir, farewellMessage, onGreet} from "./utils/mesLogger.js";
 
 const awaitUserInput = async () => {
-    console.log(`Welcome to the File Manager, ${parseArgs()}!`);
+    const argv = '--username='
+    const argvs = process.argv.slice(2).includes(argv)
+
+    if(!argvs){
+        onExit()
+    }
+    onGreet();
     dirController();
+    currentDir();
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
@@ -16,16 +23,17 @@ const awaitUserInput = async () => {
         if(line ==='.exit'){
             onExit();
         }
-        await  controller(line);
+        await controller(line);
     })
 
     rl.on('close', () => {
         onExit();
-    })
+    });
+
 }
 
 const onExit = () => {
-    console.log(`Thank you for using File Manager, ${parseArgs()}, goodbye!`);
+    farewellMessage();
     process.exit(0);
 }
 

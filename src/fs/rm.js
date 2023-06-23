@@ -1,8 +1,14 @@
 import fs from "fs";
+import {onFail} from "../utils/mesLogger.js";
 
-export const rm = async (userInput) => {
-    if(!fs.existsSync(userInput)){
-        throw Error('FS operation failed');
+export const rm = async (file) => {
+    try {
+        if(!fs.existsSync(file)){
+            onFail()
+        }
+        fs.unlinkSync(file);
     }
-    fs.unlinkSync(userInput);
+    catch (e) {
+        onFail()
+    }
 }

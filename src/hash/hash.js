@@ -1,9 +1,15 @@
 import fs from "fs";
 import crypto from "crypto";
+import {onFail} from "../utils/mesLogger.js";
 
-export const hash = async (...resdata) => {
-    const file = fs.readFileSync(...resdata);
-    const  hash = crypto.createHash('sha256');
-    hash.update(file);
-    console.log(hash.digest('hex'));
+export const hash = async (filePath) => {
+    try {
+        const file = fs.readFileSync(filePath);
+        const  hash = crypto.createHash('sha256');
+        hash.update(file);
+        console.log(hash.digest('hex'));
+    }
+    catch (e) {
+        onFail();
+    }
 }

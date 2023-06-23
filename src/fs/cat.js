@@ -7,9 +7,9 @@ export const cat  = async (filePath) => {
             onFail();
             return;
         }
-        const readableStream = fs.createReadStream(filePath, 'utf-8')
+        const readableStream = fs.createReadStream(filePath, 'utf-8');
         for await (const chunk of readableStream){
-            process.stdout.write(chunk)
+            process.stdout.write(chunk);
         }
     }
     catch (e) {

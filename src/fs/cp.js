@@ -9,20 +9,20 @@ export const cp = async (oldPath, filePath) => {
             onFail();
             return;
         }
-        const filename = path.basename(oldPath)
+        const filename = path.basename(oldPath);
         const readStream = fs.createReadStream(oldPath);
         const writeStream = fs.createWriteStream(path.join(filePath, filename));
 
         const stream = readStream.pipe(writeStream);
 
         readStream.on('error', () => {
-            onFail()
+            onFail();
         })
         writeStream.on('error', () => {
-            onFail()
+            onFail();
         })
         stream.on('error', () => {
-            onFail()
+            onFail();
         })
 
     }

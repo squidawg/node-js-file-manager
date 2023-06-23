@@ -10,6 +10,6 @@ export const rm = async (file) => {
         fs.unlinkSync(file);
     }
     catch (e) {
-        onFail()
+        onFail();
     }
 }

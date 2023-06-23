@@ -22,7 +22,7 @@ export const osController = (resData, ...rest) => {
             case '--architecture': architecture();
                 break;
             default: errLogger();
-                break
+                break;
         }
     }
 }

@@ -8,25 +8,25 @@ export const mv = (currentPath, destPath) => {
             onFail();
             return;
         }
-        const filename = path.basename(currentPath)
+        const filename = path.basename(currentPath);
         const readStream = fs.createReadStream(currentPath);
         const writeStream = fs.createWriteStream(path.join(destPath, filename));
         const stream = readStream.pipe(writeStream);
 
-        
+
         readStream.on('error', ()=> {
-            onFail()
+            onFail();
         })
 
         writeStream.on('finish', ()=> {
-            fs.unlinkSync(currentPath)
+            fs.unlinkSync(currentPath);
         })
 
         stream.on('error', () => {
-            onFail()
+            onFail();
         })
     }
     catch (e) {
-        onFail()
+        onFail();
     }
 }

@@ -10,6 +10,6 @@ export const cd = async (dirPath) => {
         process.chdir(dirPath)
     }
     catch (e){
-        onFail()
+        onFail();
     }
 }

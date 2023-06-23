@@ -10,7 +10,7 @@ export const decompress = async (currPath, destPath) => {
             return;
         }
         const brotliCompress = zlib.createBrotliDecompress();
-        const filename = path.basename(currPath)
+        const filename = path.basename(currPath);
         const readStream = fs.createReadStream(currPath);
         const writeStream = fs.createWriteStream(path.join(destPath,filename));
 
@@ -27,7 +27,7 @@ export const decompress = async (currPath, destPath) => {
             console.log('Decompressed...');
         })
         stream.on('error', () => {
-            onFail()
+            onFail();
         })
     }
     catch (e) {

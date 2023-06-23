@@ -10,7 +10,7 @@ export const compress = async (currPath, destPath) => {
             return;
         }
         const brotliCompress = zlib.createBrotliCompress();
-        const filename = path.basename(currPath)
+        const filename = path.basename(currPath);
         const readStream = fs.createReadStream(currPath);
         const writeStream = fs.createWriteStream(path.join(destPath, filename));
 

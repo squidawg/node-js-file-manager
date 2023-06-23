@@ -20,57 +20,57 @@ export const controller = async (userInput) => {
     const [operation, ...resData] = parseInput(userInput);
     switch (operation) {
         case 'ls': errControllerNoArgv(resData, onList);
-            break
+            break;
         case 'cat': errControllerArgv(resData, async () => {
-            await cat(...resData)
+            await cat(...resData);
         })
-            break
+            break;
         case 'up': errControllerNoArgv(resData, async () => {
             await up();
         })
-            break
+            break;
         case 'rn': errControllerArgv(resData, async () => {
-            await rename(...resData)
+            await rename(...resData);
         })
-            break
+            break;
         case 'cd': errControllerArgv(resData, async () => {
             await cd(...resData)
         })
-            break
+            break;
         case 'add': errControllerArgv(resData, async () => {
-            await add(...resData)
+            await add(...resData);
         })
-            break
+            break;
         case 'cp': errControllerArgv(resData, async () => {
-            await cp(...resData)
+            await cp(...resData);
         })
-            break
+            break;
         case 'rm': errControllerArgv(resData, async () => {
-            await rm(...resData)
+            await rm(...resData);
         })
-            break
+            break;
         case 'os': errControllerArgv(resData, async () => {
-            await osController(...resData)
+            await osController(...resData);
         })
-            break
+            break;
         case 'hash': errControllerArgv(resData, async () => {
-            await hash(...resData)
+            await hash(...resData);
         })
-            break
+            break;
         case 'mv': errControllerArgv(resData, async () => {
-            await mv(...resData)
+            await mv(...resData);
         })
-            break
+            break;
         case 'compress': errControllerArgv(resData, async () => {
-            await compress(...resData)
+            await compress(...resData);
         })
-            break
+            break;
         case 'decompress': errControllerArgv(resData, async () => {
-            await decompress(...resData)
+            await decompress(...resData);
         })
-            break
+            break;
         default: errLogger();
-            break
+            break;
     }
     currentDir();
 }

@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import {logOperationFailed} from "../utils/mesLogger.js";
 
 export const ls = async () => {
     const root = process.cwd();
@@ -16,9 +17,7 @@ export const ls = async () => {
                 }
             }
             catch (e) {
-                if (e.code === 'ENOENT') {
-                    console.error('File or directory not found:', itemPath);
-                }
+                logOperationFailed();
             }
     })
 

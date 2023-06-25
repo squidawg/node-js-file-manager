@@ -1,11 +1,14 @@
 import fs from "fs";
 
 export const isExist = async (filepath) => {
-    try {
-        await fs.access(filepath, (e) => {
-            return true;
+        return await new Promise((resolve) => {
+            fs.access(filepath,(e)=>{
+                if(e){
+                    resolve(false)
+                }
+                else {
+                    resolve(true)
+                }
+            });
         })
-    } catch (e) {
-        return false
-    }
 }

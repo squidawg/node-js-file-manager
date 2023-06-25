@@ -1,5 +1,9 @@
 import {parseArgs} from "./parseArgs.js";
 
+export const logNoArgv = () => {
+    console.log('Please provide argv in a way: npm run start -- --username=your_username');
+}
+
 export const logGreeting = () => {
     console.log(`Welcome to the File Manager, ${parseArgs()}!`);
 }

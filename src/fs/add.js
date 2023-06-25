@@ -4,22 +4,21 @@ import {logOperationFailed} from "../utils/mesLogger.js";
 import {isExist} from "../utils/isExist.js";
 
 export const add = async (filename) => {
-    try{
         const filepath = path.join(process.cwd(), filename);
-
-        isExist(filepath).then(exists => {
-            if(exists){
-                logOperationFailed();
+        await isExist(filepath).then(e=>{
+            if(!e){
+                fs.writeFile(filepath,'',(e) =>{
+                    if(e){
+                        logOperationFailed();
+                    }
+                });
+            }
+            else {
+                logOperationFailed()
+            }
+        }).catch(e => {
+            if(e){
+                logOperationFailed()
             }
         })
-
-        await fs.writeFile(filepath,'',(e)=>{
-            if(e){
-                logOperationFailed();
-            }
-        });
-    }
-    catch (e) {
-        logOperationFailed();
-    }
 };

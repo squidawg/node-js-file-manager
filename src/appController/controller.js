@@ -75,4 +75,3 @@ export const controller = async (userInput) => {
     }
     logCurrentDir();
 }
-

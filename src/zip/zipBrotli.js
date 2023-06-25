@@ -2,7 +2,6 @@ import zlib from "zlib";
 import fs from "fs";
 import path from "path";
 import {logOperationFailed} from "../utils/mesLogger.js";
-import {isExist} from "../utils/isExist.js";
 
 export const zipBrotli = async (state, currPath, destPath) => {
     try{

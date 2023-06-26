@@ -17,3 +17,12 @@ export const errControllerArgv = (resData, callback) => {
         callback();
     }
 }
+
+export const errControllerOneArgv = (resData, callback) => {
+    if(resData.length !== 1){
+        return logInvalidInput();
+    }
+    else {
+        callback();
+    }
+}

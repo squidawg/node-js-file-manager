@@ -12,17 +12,17 @@ import {hash} from "../hash/hash.js";
 import {mv} from "../fs/mv.js";
 import {zipBrotli} from "../zip/zipBrotli.js";
 import {logCurrentDir, logInvalidInput} from "../utils/mesLogger.js";
-import {errControllerArgv, errControllerNoArgv} from "../utils/errController.js";
+import {errControllerArgv, errControllerNoArgv, errControllerOneArgv} from "../utils/errController.js";
 
 
 export const controller = async (userInput) => {
-    const [operation, ...resData] = parseInput(userInput);
-    switch (operation) {
+    const [operation, resData] = parseInput(userInput);
+    switch (operation.toLowerCase()) {
         case 'ls': errControllerNoArgv(resData, async () => {
             await onList();
         });
             break;
-        case 'cat': errControllerArgv(resData, async () => {
+        case 'cat': errControllerOneArgv(resData, async () => {
             await cat(...resData);
         })
             break;
@@ -34,11 +34,11 @@ export const controller = async (userInput) => {
             await rename(...resData);
         })
             break;
-        case 'cd': errControllerArgv(resData, async () => {
+        case 'cd': errControllerOneArgv(resData, async () => {
             await cd(...resData)
         })
             break;
-        case 'add': errControllerArgv(resData, async () => {
+        case 'add': errControllerOneArgv(resData, async () => {
             await add(...resData);
         })
             break;
@@ -46,7 +46,7 @@ export const controller = async (userInput) => {
             await cp(...resData);
         })
             break;
-        case 'rm': errControllerArgv(resData, async () => {
+        case 'rm': errControllerOneArgv(resData, async () => {
             await rm(...resData);
         })
             break;
@@ -54,7 +54,7 @@ export const controller = async (userInput) => {
             await osController(...resData);
         })
             break;
-        case 'hash': errControllerArgv(resData, async () => {
+        case 'hash': errControllerOneArgv(resData, async () => {
             await hash(...resData);
         })
             break;
